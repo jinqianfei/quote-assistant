@@ -1423,6 +1423,12 @@
             display: none;
         }
 
+        /* ============ 报价模式隐藏输入栏 ============ */
+        body.quote-mode .input-bar,
+        body.quote-mode .input-bar-at-row {
+            display: none !important;
+        }
+
         /* ============ 响应式 - 移动端 (<=768px) ============ */
         @media (max-width: 768px) {
             body {
@@ -1882,6 +1888,7 @@
             document.getElementById('welcomePage').classList.remove('hidden');
             document.getElementById('messageArea').classList.add('hidden');
             document.getElementById('messageArea').innerHTML = '';
+            updateInputBarVisibility();
             renderHistoryList();
         }
 
@@ -1934,6 +1941,16 @@
             }
         }
 
+        // ============ 输入框显示控制 ============
+        function updateInputBarVisibility() {
+            const body = document.body;
+            if (isQuoteMode) {
+                body.classList.add('quote-mode');
+            } else {
+                body.classList.remove('quote-mode');
+            }
+        }
+
         // ============ 启动报价助手 ============
         function startQuoteAssistant() {
             isQuoteMode = true;
@@ -1943,6 +1960,7 @@
             document.getElementById('welcomePage').classList.add('hidden');
             document.getElementById('messageArea').classList.remove('hidden');
             document.getElementById('messageArea').innerHTML = '';
+            updateInputBarVisibility();
             addBotMessage(`
                 <div class="quote-welcome-card">
                     <div class="quote-welcome-icon">📊</div>
